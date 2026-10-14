@@ -1,0 +1,15 @@
+name: Supabase keepalive
+
+on:
+  schedule:
+    - cron: "0 0 */3 * *"   # 每 3 天，台灣時間早上 8 點
+  workflow_dispatch:         # 可以在 Actions 頁面手動執行
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase
+        run: |
+          curl -sSf "https://jpemsdwilisnaktcwpio.supabase.co/rest/v1/days?select=id&limit=1" \
+            -H "apikey: ${{ secrets.SUPABASE_KEY }}"
