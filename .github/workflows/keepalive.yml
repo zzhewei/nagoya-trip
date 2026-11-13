@@ -2,7 +2,10 @@ name: Supabase keepalive
 
 on:
   schedule:
-    - cron: "0 0 */3 * *"   # 每 3 天，台灣時間早上 8 點
+    # 每 8 小時一次（台灣時間 0:17、8:17、16:17）。
+    # Supabase 免費專案要「每天幾次」資料庫請求才算有活動，每 3 天一次會被寄暫停警告。
+    # 避開整點，GitHub 整點排程比較容易延遲或被跳過。
+    - cron: "17 */8 * * *"
   workflow_dispatch:         # 可以在 Actions 頁面手動執行
 
 jobs:
